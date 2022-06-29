@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import useAxios from "../utils/useAxios";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
 function ProtectedPage() {
   const [res, setRes] = useState("");
   const api = useAxios();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/test/");
-        setRes(response.data.response);
+        const response = await api.get(`/username/${user.user_id}`);
+        setRes(response.data.response.username);
       } catch {
         setRes("Something went wrong");
       }

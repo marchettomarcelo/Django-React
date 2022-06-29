@@ -45,3 +45,15 @@ def testEndPoint(request):
         data = f'Congratulation your API just responded to POST request with text: {text}'
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUsername(request, user_id):
+
+    if request.method == 'GET':
+        user = User.objects.get(id=user_id)
+        data = {'username': user.username}
+        return Response({'response': data}, status=status.HTTP_200_OK)
+
+    return Response({}, status.HTTP_400_BAD_REQUEST)

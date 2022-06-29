@@ -77,5 +77,3 @@ yarn start # OR npm run start
 - Delete `.git` folder in project root
   > Make sure you turn on the "Show hidden files, folders and disks" option.
 - `git init`
-
-ok
