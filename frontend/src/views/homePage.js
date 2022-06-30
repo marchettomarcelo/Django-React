@@ -3,14 +3,19 @@ import UserInfo from "../components/UserInfo";
 import AuthContext from "../context/AuthContext";
 
 const Home = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
-  return (
-    <section>
-      {user && <UserInfo user={user} />}
-      <h1>You are on home page!</h1>
-    </section>
-  );
+    const { user } = useContext(AuthContext);
+
+    return (
+        <section>
+            <h1 className="text-red-700 ">
+                {user
+                    ? `Olá, ${user.username}, o senhor está Logadoooo`
+                    : "You are on home page!"}
+            </h1>
+        </section>
+    );
 };
 
 export default Home;
+
+// {user && <UserInfo user={user} />}
