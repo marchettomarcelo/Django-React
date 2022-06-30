@@ -1,9 +1,10 @@
+from .models import Perfil
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer
+from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, PerfilSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from django.contrib.auth.models import User
@@ -53,7 +54,10 @@ def getUsername(request, user_id):
 
     if request.method == 'GET':
         user = User.objects.get(id=user_id)
-        data = {'username': user.username}
+
+        perfil_serializer = PerfilSerializer(user.perfil)
+
+        data = {'perfil': perfil_serializer.data}
         return Response({'response': data}, status=status.HTTP_200_OK)
 
     return Response({}, status.HTTP_400_BAD_REQUEST)
