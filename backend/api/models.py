@@ -38,6 +38,9 @@ class Perfil(models.Model):
     projeto = models.CharField(max_length=4, choices=PROJETOS,  null=True)
     pontos = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.user.username
+
 
 @receiver(post_save, sender=User)
 def create_user_Perfil(sender, instance, created, **kwargs):
