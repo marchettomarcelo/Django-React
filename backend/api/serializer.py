@@ -4,13 +4,13 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Perfil
+from .models import Perfil, Projetos
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
-        
+
         token = super().get_token(user)
 
         # Add custom claims
@@ -48,7 +48,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class ProjetosSerializes(serializers.ModelSerializer):
+    class Meta:
+        model = Projetos
+        fields = ('projeto',)
+
+
 class PerfilSerializer(serializers.ModelSerializer):
+    area = serializers.CharField()
+
+    projeto = ProjetosSerializes(many=True)
 
     class Meta:
         model = Perfil

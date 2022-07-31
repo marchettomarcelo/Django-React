@@ -56,8 +56,16 @@ def getUsername(request, user_id):
         user = User.objects.get(id=user_id)
 
         perfil_serializer = PerfilSerializer(user.perfil)
+        print(perfil_serializer.data)
 
         data = {'perfil': perfil_serializer.data}
         return Response({'response': data}, status=status.HTTP_200_OK)
 
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+def oi(request):
+    us = User.objects.get(username='deco')
+    print(us.perfil.projeto.all())
+
+    return JsonResponse({'response': "aosjdn"})

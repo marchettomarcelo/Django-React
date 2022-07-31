@@ -25,21 +25,37 @@ PROJETOS = (
 )
 
 
+class Projetos(models.Model):
+    projeto = models.CharField(max_length=4, choices=PROJETOS)
+
+    def __str__(self):
+        return self.projeto
+
+
+class Area(models.Model):
+    area = models.CharField(max_length=2, choices=AREAS)
+
+    def __str__(self):
+        return self.area
+
+
 class Perfil(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    nome_exibicao = models.CharField(max_length=100)
+    nome_exibicao = models.CharField(max_length=100, blank=True)
 
     eh_lider = models.BooleanField(default=False)
     eh_diretor = models.BooleanField(default=False)
 
-    area = models.CharField(max_length=2, choices=AREAS, null=True)
-    projeto = models.CharField(max_length=4, choices=PROJETOS,  null=True)
+    area = models.OneToOneField(
+        Area, blank=True, on_delete=models.CASCADE, null=True)
+
+    projeto = models.ManyToManyField(Projetos, blank=True, null=True)
+
     pontos = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user.username
+        return f' {self.user.username}, {self.area} do {self.projeto}'
 
 
 @receiver(post_save, sender=User)
