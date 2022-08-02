@@ -23,7 +23,7 @@ const Navbar = () => {
             </Link>
         );
     }
-    console.log(window.location.pathname);
+
     return (
         <nav>
             <div className="inner-nav">

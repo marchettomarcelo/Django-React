@@ -1,50 +1,57 @@
-import { useEffect, useState } from "react";
-import useAxios from "../utils/useAxios";
-import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import ProfileContext from "../context/ProfileContext";
+import { useContext, useEffect } from "react";
 import { convertProjeto, convertArea } from "../utils/ConvertDbValues";
+import Box from "../components/Box";
 
 function ProtectedPage() {
-    const [res, setRes] = useState("");
-    const api = useAxios();
-    const { user } = useContext(AuthContext);
+    const { userProfile } = useContext(ProfileContext);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await api.get(`/username/${user.user_id}`);
-                const x = response.data.response.perfil;
-                console.log(x);
-                setRes(x);
-            } catch {
-                setRes("Something went wrong");
-            }
-        };
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    let projetos = res.projeto
+    let projetos = userProfile?.projeto
         ?.map((proj) => {
             return convertProjeto(proj.projeto);
         })
         .join(", ");
+
+    // let caixinhas = <> </>;
+
+    // caixinhas = userProfile ? (
+    //     Array.from(Object.keys(userProfile)).map((info, index) => {
+    //         return (
+    //             <Box key={index} titulo={info} conteudo={userProfile[info]} />
+    //         );
+    //     })
+    // ) : (
+    //     <> </>
+    // );
+    // console.log(caixinhas);
+
+    // return <div> {caixinhas}</div>;
+
     return (
         <div>
-            <h1>Projected Page</h1>
-            <p>
-                Nome de exibição:{" "}
-                {res.nome_exibicao ? res.nome_exibicao : "N/A"}
-            </p>
+            {userProfile && (
+                <>
+                    <h1>Projected Page</h1>
+                    <p>
+                        Nome de exibição:{" "}
+                        {userProfile.nome_exibicao
+                            ? userProfile.nome_exibicao
+                            : "N/A"}
+                    </p>
 
-            <p>É líder do projeto: {res.eh_lider?.toString()}</p>
-            <p>É diretor da área: {res.eh_diretor?.toString()}</p>
-            <p>Pertence ao projeto: {projetos}</p>
-            <p>Pertence a área: {convertArea(res.area)}</p>
-            <br />
-            <p>Pontos por falta: {res.pontos}</p>
+                    <p>
+                        É líder do projeto: {userProfile.eh_lider?.toString()}
+                    </p>
+                    <p>
+                        É diretor da área: {userProfile.eh_diretor?.toString()}
+                    </p>
+                    <p>Pertence ao projeto: {projetos}</p>
+                    <p>Pertence a área: {convertArea(userProfile.area)}</p>
+                    <br />
+                    <p>Pontos por falta: {userProfile.pontos}</p>
+                </>
+            )}
         </div>
     );
 }
-
 export default ProtectedPage;
