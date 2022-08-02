@@ -5,16 +5,16 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { ProfileProvider } from "./context/ProfileContext";
 import Home from "./views/homePage";
 import Login from "./views/loginPage";
-import Register from "./views/registerPage";
 import ProtectedPage from "./views/ProtectedPage";
 
 function App() {
     return (
         <Router>
-            <div className="">
-                <AuthProvider>
+            <AuthProvider>
+                <ProfileProvider>
                     <main>
                         <Navbar />
                         <Switch>
@@ -24,13 +24,13 @@ function App() {
                                 exact
                             />
                             <Route component={Login} path="/login" />
-                            <Route component={Register} path="/register" />
+
                             <Route component={Home} path="/" />
                         </Switch>
                     </main>
-                </AuthProvider>
-                <Footer />
-            </div>
+                </ProfileProvider>
+            </AuthProvider>
+            <Footer />
         </Router>
     );
 }

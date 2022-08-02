@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
+import ProfileContext from "../context/ProfileContext";
 
 const Home = () => {
     const { user } = useContext(AuthContext);
-
+    const { userProfile } = useContext(ProfileContext);
+    console.log(userProfile);
     return (
         <section>
             <h1 className="text-red-700 ">

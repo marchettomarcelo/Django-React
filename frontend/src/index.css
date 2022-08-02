@@ -73,10 +73,32 @@ button{
 nav{
 
   width: 100vw;
-  background-color: beige;
+  height: 15vh;
+  background-color: #BB0B25;
+
+  
+  padding: 0px;
+}
+
+.inner-nav{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .logout-but{
   width: 90px;
   font-size: 1rem ;
+}
+
+.gastools{
+  color: white;
+}
+
+.logo-gas{
+  height: 20vh;
 }

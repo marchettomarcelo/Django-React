@@ -24,14 +24,22 @@ function ProtectedPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    let projetos = res.projeto
+        ?.map((proj) => {
+            return convertProjeto(proj.projeto);
+        })
+        .join(", ");
     return (
         <div>
             <h1>Projected Page</h1>
-            <p>Nome de exibição: {res.nome_exibicao}</p>
+            <p>
+                Nome de exibição:{" "}
+                {res.nome_exibicao ? res.nome_exibicao : "N/A"}
+            </p>
 
             <p>É líder do projeto: {res.eh_lider?.toString()}</p>
             <p>É diretor da área: {res.eh_diretor?.toString()}</p>
-            <p>Pertence ao projeto: {convertProjeto(res.projeto)}</p>
+            <p>Pertence ao projeto: {projetos}</p>
             <p>Pertence a área: {convertArea(res.area)}</p>
             <br />
             <p>Pontos por falta: {res.pontos}</p>
