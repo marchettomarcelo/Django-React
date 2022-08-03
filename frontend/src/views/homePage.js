@@ -3,25 +3,13 @@ import { Link } from "react-router-dom";
 
 import AuthContext from "../context/AuthContext";
 import ProfileContext from "../context/ProfileContext";
+import ProtectedPage from "./ProtectedPage";
 
 const Home = () => {
     const { user } = useContext(AuthContext);
     const { userProfile } = useContext(ProfileContext);
 
-    return (
-        <section>
-            <h1 className="text-red-700 ">
-                {user ? (
-                    <div>
-                        <Link to="/protected">Ver suas informações</Link> <br />
-                        {`Olá, ${user.username}, o senhor está Logadoooo`}
-                    </div>
-                ) : (
-                    "You are on home page!"
-                )}
-            </h1>
-        </section>
-    );
+    return <section>{user ? <ProtectedPage /> : <></>}</section>;
 };
 
 export default Home;

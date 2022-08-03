@@ -9,6 +9,8 @@ import { ProfileProvider } from "./context/ProfileContext";
 import Home from "./views/homePage";
 import Login from "./views/loginPage";
 import ProtectedPage from "./views/ProtectedPage";
+import AreaPage from "./views/AreaPage";
+import AdminPage from "./views/AdminPage";
 
 function App() {
     return (
@@ -23,9 +25,19 @@ function App() {
                                 path="/protected"
                                 exact
                             />
-                            <Route component={Login} path="/login" />
+                            <PrivateRoute
+                                component={AreaPage}
+                                path="/areas/:area"
+                                exact
+                            />
+                            <PrivateRoute
+                                component={AdminPage}
+                                path="/admin"
+                                exact
+                            />
 
-                            <Route component={Home} path="/" />
+                            <Route component={Login} path="/login" />
+                            <Route component={Home} path="/" exact />
                         </Switch>
                     </main>
                 </ProfileProvider>

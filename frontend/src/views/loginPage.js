@@ -5,9 +5,9 @@ const LoginPage = () => {
     const { loginUser } = useContext(AuthContext);
     const handleSubmit = (e) => {
         e.preventDefault();
-        const username = e.target.username.value;
+        const email = e.target.email.value;
         const password = e.target.password.value;
-        username.length > 0 && loginUser(username, password);
+        email.length > 0 && loginUser(email, password);
     };
 
     return (
@@ -15,8 +15,8 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit}>
                 <h1>Login </h1>
 
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" placeholder="Enter Username" />
+                <label htmlFor="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email" />
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"

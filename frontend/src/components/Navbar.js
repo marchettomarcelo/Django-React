@@ -27,8 +27,6 @@ const Navbar = () => {
     return (
         <nav>
             <div className="inner-nav">
-                <h1 className="gastools">GAS Tools</h1>
-                <div className="in-out-links-div">{botaoLoginLogout}</div>
                 <div className="logo-div">
                     <img
                         className="logo-gas"
@@ -36,6 +34,8 @@ const Navbar = () => {
                         alt="logo"
                     />
                 </div>
+                <h1 className="gastools">GAS Tools</h1>
+                <div className="in-out-links-div">{botaoLoginLogout}</div>
             </div>
         </nav>
     );
