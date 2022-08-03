@@ -43,6 +43,12 @@ function ProtectedPage() {
                     <Link to={`/areas/${area}`}>
                         <button> Pagina exclusiva da sua area </button>
                     </Link>
+
+                    {userProfile.eh_diretor && (
+                        <Link to={`/admin`}>
+                            <button> Admin </button>
+                        </Link>
+                    )}
                 </>
             )}
         </div>

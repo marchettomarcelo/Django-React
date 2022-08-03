@@ -1,24 +1,46 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfileContext from "../context/ProfileContext";
 import { Redirect } from "react-router-dom";
 import useAxios from "../utils/useAxios";
+import DarPontos from "../components/DarPontos";
 
 export default function AdminPage() {
-    // const { userProfile } = useContext(ProfileContext);
-    // const axios = useAxios();
+    const { userProfile } = useContext(ProfileContext);
+    const [infoMembros, setInfoMembros] = useState(null);
+    const [membroEscolhido, setMembroEscolhido] = useState("");
+    const api = useAxios();
 
-    // if (!userProfile?.eh_diretor) {
-    //     console.log("oi");
-    //     return <Redirect to="/" />;
-    // } else {
-    //     axios
-    //         .get("http://127.0.0.1:8000/api/users/")
-    //         .then((res) => {
-    //             console.log(res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
+    useEffect(() => {
+        if (userProfile !== null) {
+            if (userProfile.eh_diretor && infoMembros === null) {
+                api.get("http://127.0.0.1:8000/api/users/")
+                    .then((res) => {
+                        setInfoMembros(res.data.users);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        }
+    }, [userProfile]);
 
-    return <h1>Admin Page</h1>;
+    const handleChange = (event) => {
+        setMembroEscolhido(event.target.value);
+    };
+
+    if (userProfile && infoMembros) {
+        if (userProfile.eh_diretor) {
+            return (
+                <DarPontos
+                    membroEscolhido={membroEscolhido}
+                    infoMembros={infoMembros}
+                    handleChange={handleChange}
+                />
+            );
+        } else {
+            return <Redirect to="/" />;
+        }
+    } else {
+        return <></>;
+    }
 }

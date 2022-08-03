@@ -104,3 +104,32 @@ nav{
 .logo-gas{
   height: 20vh;
 }
+
+.dar-pontos{
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.select-nomes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: large;
+  padding: 0.5rem;
+  box-sizing:border-box;
+  border: 2px black solid;
+  border-radius: 5px;
+  
+}
+
+.input-novos-pontos{
+  box-sizing:border-box;
+  border: 1px black solid;
+  border-radius: 5px;
+}
