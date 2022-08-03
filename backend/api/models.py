@@ -47,7 +47,7 @@ class Perfil(models.Model):
     eh_lider = models.BooleanField(default=False)
     eh_diretor = models.BooleanField(default=False)
 
-    area = models.OneToOneField(
+    area = models.ForeignKey(
         Area, blank=True, on_delete=models.CASCADE, null=True)
 
     projeto = models.ManyToManyField(Projetos, blank=True, null=True)

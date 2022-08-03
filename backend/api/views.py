@@ -10,6 +10,7 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -54,6 +55,7 @@ def getUsername(request, user_id):
 
     if request.method == 'GET':
         user = User.objects.get(id=user_id)
+        # print(user.)
 
         perfil_serializer = PerfilSerializer(user.perfil)
         print(perfil_serializer.data)
@@ -64,8 +66,28 @@ def getUsername(request, user_id):
     return Response({}, status.HTTP_400_BAD_REQUEST)
 
 
-def oi(request):
-    us = User.objects.get(username='deco')
-    print(us.perfil.projeto.all())
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def users(request):
+    every_user = Perfil.objects.all()
+    every_user_serialized = PerfilSerializer(every_user, many=True)
 
-    return JsonResponse({'response': "aosjdn"})
+    return JsonResponse({'users': every_user_serialized.data})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@csrf_exempt  # This is to avoid the csrf error REMOVE DPS
+def updateProfile(request):
+
+    try:
+        user_id = request.POST.get('user_id')
+        novos_pontos = request.POST.get('pontos')
+        user = Perfil.objects.get(pk=user_id)
+        user.pontos = novos_pontos
+        user.save()
+        return JsonResponse({'response': 'Perfil atualizado com sucesso'})
+
+    except:
+
+        return JsonResponse({'response': 'Ocorreu um erro'})
