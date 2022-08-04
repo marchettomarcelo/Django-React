@@ -29,14 +29,12 @@ form{
 .form-section{
   width: 50vw;
 }
-button{
-  width: 100%;
 
-}
 label{
   font-size: 1.2rem;
+  width: 100%;
   font-weight: 500;
-
+  
 }
 input{
   font-size: 0.9rem;
@@ -44,10 +42,11 @@ input{
   width: 100%;
   padding: 0.5rem;
   box-sizing:border-box
-
+  
 }
 
 button{
+  width: 100%;
   border: 2px black solid;
   border-radius: 5px;
   background-color: white;
@@ -55,6 +54,15 @@ button{
   font-weight: 500;
   padding: 0.5rem;
   margin: auto;
+}
+
+button:hover{
+  background-color: rgb(240, 240, 240);
+  cursor: pointer;
+  
+}
+button:active{
+  background-color: rgb(220, 220, 220);
 }
 
 .but-div{
@@ -115,6 +123,7 @@ nav{
 }
 
 .select-nomes{
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,4 +141,24 @@ nav{
   box-sizing:border-box;
   border: 1px black solid;
   border-radius: 5px;
+}
+
+.dar-pontos-but{
+  width: 40%;
+  padding: 0rem;
+  font-size: large;
+}
+
+
+/* dar-pontos is 90vw in mobile devices and 50vw on laptops */
+@media (max-width: 768px) {
+  .dar-pontos{
+    width: 90vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .dar-pontos{
+    width: 50vw;
+  }
 }

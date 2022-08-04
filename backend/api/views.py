@@ -81,10 +81,12 @@ def users(request):
 def updateProfile(request):
 
     try:
-        user_id = request.POST.get('user_id')
-        novos_pontos = request.POST.get('pontos')
-        user = Perfil.objects.get(pk=user_id)
-        user.pontos = novos_pontos
+        user_id = request.data.user_id
+        novos_pontos = request.data.pontos
+
+        print(user_id, novos_pontos)
+        user = User.objects.get(pk=user_id)
+        user.perfil.pontos = novos_pontos
         user.save()
         return JsonResponse({'response': 'Perfil atualizado com sucesso'})
 

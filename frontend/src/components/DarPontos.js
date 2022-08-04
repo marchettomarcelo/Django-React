@@ -1,12 +1,14 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxios from "../utils/useAxios";
 
 export default function DarPontos({
     membroEscolhido,
     infoMembros,
     handleChange,
 }) {
+    const api = useAxios();
     const [pontos, setPontos] = useState(0);
-
     function handleInputChange(e) {
         setPontos(e.target.value);
     }
@@ -23,6 +25,16 @@ export default function DarPontos({
 
             setPontos(pontosMembroAtual);
         }
+    }
+
+    async function handleButtonClick() {
+        const data = {
+            user_id: membroEscolhido,
+            pontos: pontos,
+        };
+        console.log(data);
+        const response = await api.post("/update-profile/", data);
+        console.log(response);
     }
 
     return (
@@ -49,17 +61,26 @@ export default function DarPontos({
                         ))}
                     </select>
                 </label>
-                <label>
-                    <h4>Pontos:</h4>
+                {membroEscolhido && (
+                    <>
+                        <label>
+                            <h4>Pontos:</h4>
 
-                    <input
-                        type="text"
-                        className="input-novos-pontos"
-                        onChange={handleInputChange}
-                        value={pontos}
-                    />
-                </label>
-                <p>Atribuir pontos a: {membroEscolhido}!</p>
+                            <input
+                                type="text"
+                                className="input-novos-pontos"
+                                onChange={handleInputChange}
+                                value={pontos}
+                            />
+                        </label>
+                        <button
+                            className="dar-pontos-but"
+                            onClick={handleButtonClick}
+                        >
+                            <h5>Dar Pontos</h5>
+                        </button>
+                    </>
+                )}
             </div>
         </>
     );
