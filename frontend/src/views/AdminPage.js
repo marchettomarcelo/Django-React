@@ -8,7 +8,7 @@ import { FilterMembers } from "../utils/FilterMembers";
 export default function AdminPage() {
     const { userProfile } = useContext(ProfileContext);
     const [infoMembros, setInfoMembros] = useState(null);
-    const [membroEscolhido, setMembroEscolhido] = useState("");
+    const [IdMembroEscolhido, setIdMembroEscolhido] = useState("");
     const api = useAxios();
 
     useEffect(() => {
@@ -17,37 +17,37 @@ export default function AdminPage() {
                 (userProfile.eh_diretor || userProfile.eh_lider) &&
                 infoMembros === null
             ) {
-                api.get("http://127.0.0.1:8000/api/users/")
+                api.get("/users/")
                     .then((res) => {
                         setInfoMembros(res.data.users);
                     })
                     .catch((err) => {
-                        console.log(err);
+                        alert("Erro ao carregar os membros. Avise o Marcelo.");
                     });
             }
         }
-    }, [userProfile]);
+    });
 
-    const handleChange = (event) => {
-        setMembroEscolhido(event.target.value);
+    const handleSelectedMemberChange = (event) => {
+        setIdMembroEscolhido(event.target.value);
     };
 
     if (userProfile && infoMembros) {
         if (userProfile.eh_diretor) {
             return (
                 <DarPontos
-                    membroEscolhido={membroEscolhido}
+                    IdMembroEscolhido={IdMembroEscolhido}
                     infoMembros={infoMembros}
-                    handleChange={handleChange}
+                    handleSelectedMemberChange={handleSelectedMemberChange}
                 />
             );
         } else if (userProfile.eh_lider) {
             const membros = FilterMembers(infoMembros, userProfile);
             return (
                 <DarPontos
-                    membroEscolhido={membroEscolhido}
+                    IdMembroEscolhido={IdMembroEscolhido}
                     infoMembros={membros}
-                    handleChange={handleChange}
+                    handleSelectedMemberChange={handleSelectedMemberChange}
                 />
             );
         } else {

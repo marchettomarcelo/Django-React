@@ -1,15 +1,12 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
-
 import AuthContext from "../context/AuthContext";
-import ProfileContext from "../context/ProfileContext";
 import ProtectedPage from "./ProtectedPage";
+import LoginPage from "./loginPage";
 
 const Home = () => {
     const { user } = useContext(AuthContext);
-    const { userProfile } = useContext(ProfileContext);
 
-    return <section>{user ? <ProtectedPage /> : <></>}</section>;
+    return <section>{user ? <ProtectedPage /> : <LoginPage />}</section>;
 };
 
 export default Home;

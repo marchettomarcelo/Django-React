@@ -1,28 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 // import logo_gas_branco from "../../public/logo_gas_branco.png";
 
 const Navbar = () => {
     const { user, logoutUser } = useContext(AuthContext);
-
-    let botaoLoginLogout = <></>;
-
-    if (user) {
-        botaoLoginLogout = (
-            <button className="logout-but" onClick={logoutUser}>
-                Logout
-            </button>
-        );
-    }
-
-    if (!user && window.location.pathname !== "/login") {
-        botaoLoginLogout = (
-            <Link to="/login">
-                <button className="logout-but">Login</button>
-            </Link>
-        );
-    }
 
     return (
         <nav>
@@ -35,7 +17,14 @@ const Navbar = () => {
                     />
                 </div>
                 <h1 className="gastools">GAS Tools</h1>
-                <div className="in-out-links-div"> {botaoLoginLogout}</div>
+                {user && (
+                    <div className="in-out-links-div">
+                        {" "}
+                        <button className="logout-but" onClick={logoutUser}>
+                            Logout
+                        </button>
+                    </div>
+                )}
             </div>
         </nav>
     );

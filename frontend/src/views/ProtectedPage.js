@@ -1,8 +1,7 @@
 import ProfileContext from "../context/ProfileContext";
 import AuthContext from "../context/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { convertProjeto, convertArea } from "../utils/ConvertDbValues";
-import Box from "../components/Box";
 import { Link } from "react-router-dom";
 
 function ProtectedPage() {

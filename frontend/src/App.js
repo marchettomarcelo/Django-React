@@ -2,7 +2,12 @@ import React from "react";
 import "./index.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Route,
+    Switch,
+} from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ProfileProvider } from "./context/ProfileContext";
@@ -21,11 +26,6 @@ function App() {
                         <Navbar />
                         <Switch>
                             <PrivateRoute
-                                component={ProtectedPage}
-                                path="/protected"
-                                exact
-                            />
-                            <PrivateRoute
                                 component={AreaPage}
                                 path="/areas/:area"
                                 exact
@@ -36,8 +36,8 @@ function App() {
                                 exact
                             />
 
-                            <Route component={Login} path="/login" />
-                            <Route component={Home} path="/" exact />
+                            {/* <Route component={Login} path="/login" /> */}
+                            <Route component={Home} path="*" />
                         </Switch>
                     </main>
                 </ProfileProvider>

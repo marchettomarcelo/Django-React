@@ -1,24 +1,26 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import useAxios from "../utils/useAxios";
 
 export default function DarPontos({
-    membroEscolhido,
+    IdMembroEscolhido,
     infoMembros,
-    handleChange,
+    handleSelectedMemberChange,
 }) {
     const api = useAxios();
     const [pontos, setPontos] = useState(0);
-    function handleInputChange(e) {
+
+    function handleInputChangeTyping(e) {
         setPontos(e.target.value);
     }
-    function handleInputChange2(e) {
+
+    function handleInputChangeSelect(e) {
         const id_current = e.target.value;
         if (id_current === "") {
             setPontos(0);
         }
 
-        if (membroEscolhido || id_current !== "") {
+        if (IdMembroEscolhido || id_current !== "") {
             const pontosMembroAtual = infoMembros.find(
                 (membro) => membro.user === parseInt(id_current)
             ).pontos;
@@ -28,16 +30,13 @@ export default function DarPontos({
     }
 
     async function handleButtonClick() {
-        const data = {
-            user_id: membroEscolhido,
+        const response = await api.patch("/update-profile/", {
+            user_id: IdMembroEscolhido,
             pontos: pontos,
-        };
-        console.log(data);
-        const response = await api.patch("/update-profile/", data);
-        console.log(response);
+        });
 
         if (response.data.response === "error") {
-            alert("Erro ao atualizar pontos");
+            alert("Erro ao atualizar pontos. Avise o Marcelo.");
         } else {
             alert("Pontos atualizados com sucesso");
             window.location.reload();
@@ -55,10 +54,10 @@ export default function DarPontos({
                     <h4>Pessoa escolhida:</h4>
                     <select
                         className="select-nomes"
-                        value={membroEscolhido}
+                        value={IdMembroEscolhido}
                         onChange={(e) => {
-                            handleChange(e);
-                            handleInputChange2(e);
+                            handleSelectedMemberChange(e);
+                            handleInputChangeSelect(e);
                         }}
                     >
                         <option value={""}>{"-----"}</option>
@@ -70,7 +69,7 @@ export default function DarPontos({
                         ))}
                     </select>
                 </label>
-                {membroEscolhido && (
+                {IdMembroEscolhido && (
                     <>
                         <label>
                             <h5>Pontos:</h5>
@@ -78,7 +77,7 @@ export default function DarPontos({
                             <input
                                 type="text"
                                 className="input-novos-pontos"
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeTyping}
                                 value={pontos}
                             />
                         </label>
@@ -91,6 +90,9 @@ export default function DarPontos({
                     </>
                 )}
             </div>
+            <Link to={"/"}>
+                <button className="voltar">Página inicial</button>
+            </Link>
         </div>
     );
 }

@@ -40,9 +40,6 @@ form{
   padding-right: 1rem;
 }
 
-.form-section{
-  width: 50vw;
-}
 
 label{
   font-size: 1.2rem;
@@ -68,6 +65,7 @@ button{
   font-weight: 500;
   padding: 0.5rem;
   margin: auto;
+  color: black;
 }
 
 button:hover{
@@ -164,17 +162,45 @@ nav{
   font-size: large;
 }
 
+.voltar{
+  width: 100%;
+  font-size: large;
+  font-weight: 800;
+  padding: 0.5rem;
+  box-sizing:border-box;
+  border: 2px black solid;
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #BB0B25;
+  color: white;
+}
+.voltar:hover{
+  background-color: #e43c55;
+  
+  cursor: pointer;
+}
+
 
 /* dar-pontos is 90vw in mobile devices and 50vw on laptops */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .dar-pontos{
     width: 90vw;
+  }
+  .form-section{
+    width: 90vw;
+  }
+  /* hide gas tools class */
+  .gastools{
+    display: none;
   }
 
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .dar-pontos{
+    width: 50vw;
+  }
+  .form-section{
     width: 50vw;
   }
 }
