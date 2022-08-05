@@ -55,7 +55,7 @@ class Perfil(models.Model):
     pontos = models.IntegerField(default=0)
 
     def __str__(self):
-        return f' {self.user.username}, {self.area} do {self.projeto}'
+        return f' {self.user.username}, {self.area}'
 
 
 @receiver(post_save, sender=User)

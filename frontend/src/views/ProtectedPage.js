@@ -45,7 +45,7 @@ function ProtectedPage() {
                             <button> Pagina exclusiva da sua area </button>
                         </Link>
 
-                        {userProfile.eh_diretor && (
+                        {(userProfile.eh_diretor || userProfile.eh_lider) && (
                             <Link to={`/admin`}>
                                 <button style={{ marginTop: "10px" }}>
                                     {" "}
