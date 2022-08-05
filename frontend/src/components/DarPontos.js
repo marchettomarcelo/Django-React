@@ -33,17 +33,26 @@ export default function DarPontos({
             pontos: pontos,
         };
         console.log(data);
-        const response = await api.post("/update-profile/", data);
+        const response = await api.patch("/update-profile/", data);
         console.log(response);
+
+        if (response.data.response === "error") {
+            alert("Erro ao atualizar pontos");
+        } else {
+            alert("Pontos atualizados com sucesso");
+            window.location.reload();
+        }
     }
 
     return (
-        <>
-            <h1>Esse página é exclusiva para membros da Diretoria</h1>
+        <div className="page">
+            <h2>
+                Esse página é exclusiva para: <br /> líderes e diretores.
+            </h2>
 
             <div className="dar-pontos">
                 <label>
-                    <h3>Pessoa escolhida:</h3>
+                    <h4>Pessoa escolhida:</h4>
                     <select
                         className="select-nomes"
                         value={membroEscolhido}
@@ -64,7 +73,7 @@ export default function DarPontos({
                 {membroEscolhido && (
                     <>
                         <label>
-                            <h4>Pontos:</h4>
+                            <h5>Pontos:</h5>
 
                             <input
                                 type="text"
@@ -82,6 +91,6 @@ export default function DarPontos({
                     </>
                 )}
             </div>
-        </>
+        </div>
     );
 }

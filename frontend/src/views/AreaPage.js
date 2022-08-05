@@ -24,16 +24,21 @@ export default function AreaPage() {
 
     if (areaParametro === areaPerfil || userProfile?.eh_diretor) {
         return (
-            <h1>
-                Esse página é exclusiva para membros da área: {areaParametro}
-            </h1>
+            <div className="page">
+                <h1>
+                    Esse página é exclusiva para membros da área:{" "}
+                    {areaParametro}
+                </h1>
+            </div>
         );
     } else {
         return (
-            <h1>
-                Esse página é exclusiva para membros da área: {areaParametro}.
-                Você não pode acessar esse conteúdo.
-            </h1>
+            <div className="page">
+                <h1>
+                    Esse página é exclusiva para membros da área:{" "}
+                    {areaParametro}. Você não pode acessar esse conteúdo.
+                </h1>
+            </div>
         );
     }
 }

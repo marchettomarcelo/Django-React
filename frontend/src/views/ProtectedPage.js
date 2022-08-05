@@ -18,7 +18,7 @@ function ProtectedPage() {
     const area = convertArea(userProfile?.area);
 
     return (
-        <div>
+        <div className="page">
             {userProfile && (
                 <>
                     <h1> Olá senhor {user.username} </h1>
@@ -40,15 +40,20 @@ function ProtectedPage() {
                     <br />
                     <h4>Pontos por falta: {userProfile.pontos}</h4>
 
-                    <Link to={`/areas/${area}`}>
-                        <button> Pagina exclusiva da sua area </button>
-                    </Link>
-
-                    {userProfile.eh_diretor && (
-                        <Link to={`/admin`}>
-                            <button> Admin </button>
+                    <div className="buts-protected-page">
+                        <Link to={`/areas/${area}`}>
+                            <button> Pagina exclusiva da sua area </button>
                         </Link>
-                    )}
+
+                        {userProfile.eh_diretor && (
+                            <Link to={`/admin`}>
+                                <button style={{ marginTop: "10px" }}>
+                                    {" "}
+                                    Admin{" "}
+                                </button>
+                            </Link>
+                        )}
+                    </div>
                 </>
             )}
         </div>

@@ -35,7 +35,7 @@ const Navbar = () => {
                     />
                 </div>
                 <h1 className="gastools">GAS Tools</h1>
-                <div className="in-out-links-div">{botaoLoginLogout}</div>
+                <div className="in-out-links-div"> {botaoLoginLogout}</div>
             </div>
         </nav>
     );

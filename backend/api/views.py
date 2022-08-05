@@ -55,10 +55,8 @@ def getUsername(request, user_id):
 
     if request.method == 'GET':
         user = User.objects.get(id=user_id)
-        # print(user.)
 
         perfil_serializer = PerfilSerializer(user.perfil)
-        print(perfil_serializer.data)
 
         data = {'perfil': perfil_serializer.data}
         return Response({'response': data}, status=status.HTTP_200_OK)
@@ -75,21 +73,21 @@ def users(request):
     return JsonResponse({'users': every_user_serialized.data})
 
 
-@api_view(['POST'])
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 @csrf_exempt  # This is to avoid the csrf error REMOVE DPS
 def updateProfile(request):
-
     try:
-        user_id = request.data.user_id
-        novos_pontos = request.data.pontos
+        user_id = int(request.data.get('user_id'))
+        novos_pontos = int(request.data.get('pontos'))
 
-        print(user_id, novos_pontos)
         user = User.objects.get(pk=user_id)
         user.perfil.pontos = novos_pontos
-        user.save()
-        return JsonResponse({'response': 'Perfil atualizado com sucesso'})
+
+        user.perfil.save()
+        print("oi")
+        return Response({'response': "ok"}, status=status.HTTP_200_OK)
 
     except:
 
-        return JsonResponse({'response': 'Ocorreu um erro'})
+        return Response({'response': 'Não foi possível alterar o perfil, avise o Marcelo'}, status=status.HTTP_400_BAD_REQUEST)
