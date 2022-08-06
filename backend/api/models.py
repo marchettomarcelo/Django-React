@@ -50,12 +50,28 @@ class Perfil(models.Model):
     area = models.ForeignKey(
         Area, blank=True, on_delete=models.CASCADE, null=True)
 
-    projeto = models.ManyToManyField(Projetos, blank=True, null=True)
+    projeto = models.ManyToManyField(Projetos, blank=True)
 
     pontos = models.IntegerField(default=0)
 
     def __str__(self):
-        return f' {self.user.username}, {self.area}'
+
+        projetos_participando = []
+        area_participando = ""
+        # Adiciona os nomes dos projetos ao array proj
+        for proj in self.projeto.all():
+            projetos_participando.append(proj.projeto)
+        projetos_participando = ', '.join(projetos_participando)
+
+        if self.area:
+            area_participando = self.area
+
+        if self.eh_diretor:
+            return f'{self.user.username}, diretor(a) {area_participando}'
+        elif self.eh_lider:
+            return f'{self.user.username}, líder do {projetos_participando}'
+        else:
+            return f'{self.user.username}, {area_participando} do {projetos_participando}'
 
 
 @receiver(post_save, sender=User)
