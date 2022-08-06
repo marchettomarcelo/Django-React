@@ -12,6 +12,7 @@ urlpatterns = [
     path('test/', views.testEndPoint, name='test'),
     path('username/<int:user_id>', views.getUsername, name='getUsername'),
     path('update-profile/', views.updateProfile, name='updateProfile'),
+    path('create-perfil/', views.create_perfil, name='create_perfil'),
     path('users/', views.users, name='users'),
     path('', views.getRoutes)
 ]

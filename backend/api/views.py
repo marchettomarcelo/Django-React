@@ -1,4 +1,4 @@
-from .models import Perfil
+from .models import Perfil, Projetos, Area
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -91,3 +91,30 @@ def updateProfile(request):
     except:
 
         return Response({'response': 'Não foi possível alterar o perfil, avise o Marcelo'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@csrf_exempt  # This is to avoid the csrf error REMOVE DPS
+def create_perfil(request):
+    try:
+        # Achar o usuario
+        user = User.objects.get(username=request.data.get('username'))
+
+        if request.data.get('eh_lider') == "True":
+            user.perfil.eh_lider = True
+
+        if request.data.get('eh_diretor') == "True":
+            user.perfil.eh_diretor = True
+
+        user.perfil.nome_exibicao = request.data.get('nome_exibicao')
+        user.perfil.area = Area.objects.get(area=request.data.get('area'))
+
+        projeto = Projetos.objects.get(projeto=request.data.get('projeto'))
+        user.perfil.projeto.add(projeto.id)
+
+        user.perfil.save()
+
+        return Response({'response': 'ok'}, status=status.HTTP_200_OK)
+    except Exception as e:
+
+        return Response({'response': e}, status=status.HTTP_400_BAD_REQUEST)

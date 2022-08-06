@@ -57,6 +57,7 @@ input{
 }
 
 button{
+  text-decoration: none;
   width: 100%;
   border: 2px black solid;
   border-radius: 5px;
@@ -162,7 +163,16 @@ nav{
   font-size: large;
 }
 
-.voltar{
+
+
+.voltar-but{
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
   width: 100%;
   font-size: large;
   font-weight: 800;
@@ -174,11 +184,27 @@ nav{
   background-color: #BB0B25;
   color: white;
 }
-.voltar:hover{
+
+.voltar-but:hover{
   background-color: #e43c55;
   
   cursor: pointer;
 }
+
+.a-voltar-but{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem ;
+}
+
+a{
+  text-decoration: none;
+}
+
+.home-icon{
+  height: 1rem;
+}
+
 
 
 /* dar-pontos is 90vw in mobile devices and 50vw on laptops */
