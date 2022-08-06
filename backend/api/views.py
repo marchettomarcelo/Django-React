@@ -98,23 +98,33 @@ def updateProfile(request):
 def create_perfil(request):
     try:
         # Achar o usuario
-        user = User.objects.get(username=request.data.get('username'))
+        user = User.objects.get(username=request.data.get('email'))
 
+        user.perfil.nome_exibicao = request.data.get('nome_exibicao')
+
+        # Se for líder, mudar boleano
         if request.data.get('eh_lider') == "True":
             user.perfil.eh_lider = True
 
+        # Se for diretor, mudar boleano
         if request.data.get('eh_diretor') == "True":
             user.perfil.eh_diretor = True
 
-        user.perfil.nome_exibicao = request.data.get('nome_exibicao')
-        user.perfil.area = Area.objects.get(area=request.data.get('area'))
+        # Se pertencer a alguma area, alterar perfil
+        area_request = request.data.get('area')
+        if area_request != "nan":
+            user.perfil.area = Area.objects.get(area=area_request)
 
-        projeto = Projetos.objects.get(projeto=request.data.get('projeto'))
-        user.perfil.projeto.add(projeto.id)
+        # Se pertencer a algum projeto, alterar perfil
+        projeto_request = request.data.get('projeto')
+        if projeto_request != "nan":
+            projeto = Projetos.objects.get(projeto=projeto_request)
+            user.perfil.projeto.add(projeto.id)
 
+        # salvar alterações
         user.perfil.save()
 
         return Response({'response': 'ok'}, status=status.HTTP_200_OK)
     except Exception as e:
-
-        return Response({'response': e}, status=status.HTTP_400_BAD_REQUEST)
+        print(e)
+        return Response({'response': "erro"}, status=status.HTTP_400_BAD_REQUEST)
