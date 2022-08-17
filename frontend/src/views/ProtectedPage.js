@@ -29,13 +29,18 @@ function ProtectedPage() {
                     </p>
 
                     <p>
-                        É líder do projeto: {userProfile.eh_lider?.toString()}
+                        {userProfile.eh_lider && "Você é lider do projeto"}
+                        {/* É líder do projeto: {userProfile.eh_lider?.toString()} */}
                     </p>
                     <p>
-                        É diretor da área: {userProfile.eh_diretor?.toString()}
+                        {userProfile.eh_diretor && "Você é diretor da sua área"}
                     </p>
-                    <p>Pertence ao projeto: {projetos}</p>
-                    <p>Pertence a área: {area}</p>
+                    <p>
+                        {userProfile.projeto.length !== 0 &&
+                            `Pertence ao projeto: ${projetos}`}
+                    </p>
+                    {userProfile.area && `Você pertence a área: ${area}`}
+
                     <br />
                     <h4>Pontos por falta: {userProfile.pontos}</h4>
 

@@ -16,6 +16,7 @@ import Login from "./views/loginPage";
 import ProtectedPage from "./views/ProtectedPage";
 import AreaPage from "./views/AreaPage";
 import AdminPage from "./views/AdminPage";
+import ListaAvisos from "./components/ListaAvisos";
 
 function App() {
     return (
@@ -33,6 +34,11 @@ function App() {
                             <PrivateRoute
                                 component={AdminPage}
                                 path="/admin"
+                                exact
+                            />
+                            <PrivateRoute
+                                component={ListaAvisos}
+                                path="/posts"
                                 exact
                             />
 
