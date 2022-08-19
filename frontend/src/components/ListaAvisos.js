@@ -9,7 +9,8 @@ export default function ListaAvisos() {
         { titulo: "titulo3", descricao: "descricao3" },
     ]);
 
-    const [postSendoEditado, setPostSendoEditado] = useState(false);
+    const [emEdicao, setEmEdicao] = useState(false);
+    const [indexPostEmEdicao, setIndexPostEmEdicao] = useState(null);
 
     function mudarUmPost(indexDoAviso, avisoAlterado) {
         let data = [...todosOsAvisos];
@@ -17,20 +18,30 @@ export default function ListaAvisos() {
         setTodosOsAvisos(data);
     }
 
-    function handleClick() {
-        setPostSendoEditado(!postSendoEditado);
+    function salvarMudancas() {
+        setEmEdicao(false);
+        setIndexPostEmEdicao(null);
+    }
+
+    function handleClick(e) {
+        const id = parseInt(e.target.id);
+        setIndexPostEmEdicao(id);
+        setEmEdicao(!emEdicao);
     }
 
     return (
-        <div>
-            <button onClick={handleClick}>editar posts</button>
+        <div className="lista-avisos responsivo">
+            {/* <button onClick={handleClick}>editar posts</button> */}
             {todosOsAvisos.map((aviso, indexDoAviso) => {
                 return (
                     <Aviso
                         aviso={aviso}
                         indexDoAviso={indexDoAviso}
-                        sendoEditado={postSendoEditado}
+                        emEdicao={emEdicao}
                         mudarUmPost={mudarUmPost}
+                        postSendoEditado={handleClick}
+                        indexPostEmEdicao={indexPostEmEdicao}
+                        salvarMudancas={salvarMudancas}
                         key={indexDoAviso}
                     />
                 );

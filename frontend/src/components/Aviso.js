@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import BotaoEditar from "./BotaoEditar";
 
 export default function Aviso({
     aviso,
     indexDoAviso,
-    sendoEditado,
+    emEdicao,
     mudarUmPost,
+    postSendoEditado,
+    indexPostEmEdicao,
+    salvarMudancas,
 }) {
     const [avisoComponente, setAvisoComponente] = useState(null);
     useEffect(() => {
-        console.log("bom dia");
         setAvisoComponente(aviso);
     }, []);
 
@@ -23,28 +26,44 @@ export default function Aviso({
         return <></>;
     }
 
-    if (!sendoEditado) {
+    console.log(indexDoAviso, indexPostEmEdicao);
+
+    if (!emEdicao) {
         return (
-            <div>
+            <div className="aviso">
                 <h1>{avisoComponente.titulo}</h1>
                 <p>{avisoComponente.descricao}</p>
+                <BotaoEditar
+                    postSendoEditado={postSendoEditado}
+                    indexDoAviso={indexDoAviso}
+                />
+            </div>
+        );
+    } else if (indexDoAviso === indexPostEmEdicao) {
+        return (
+            <div className="aviso">
+                <div>
+                    <input
+                        type="text"
+                        value={avisoComponente.titulo}
+                        name="titulo"
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        value={avisoComponente.descricao}
+                        name="descricao"
+                        onChange={handleChange}
+                    />
+                </div>
+                <button onClick={salvarMudancas}>salvar mudancas</button>
             </div>
         );
     } else {
         return (
-            <div>
-                <input
-                    type="text"
-                    value={avisoComponente.titulo}
-                    name="titulo"
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    value={avisoComponente.descricao}
-                    name="descricao"
-                    onChange={handleChange}
-                />
+            <div className="aviso">
+                <h1>{avisoComponente.titulo}</h1>
+                <p>{avisoComponente.descricao}</p>
             </div>
         );
     }

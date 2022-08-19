@@ -205,9 +205,48 @@ a{
   height: 1rem;
 }
 
+.icon{
+  height: 1rem;
+}
 
+.div-icone{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  
+  width: 100%;
+  
+}
 
-/* dar-pontos is 90vw in mobile devices and 50vw on laptops */
+.but-icone{
+  margin: 0px;
+  width: 8%;
+}
+
+.aviso{
+  border: 4px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+   
+}
+
+.aviso h1{
+  margin: 0;
+}
+
+.lista-avisos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 50vw;
+}
+
 @media (max-width: 600px) {
   .dar-pontos{
     width: 90vw;
@@ -215,6 +254,11 @@ a{
   .form-section{
     width: 90vw;
   }
+
+  .responsivo{
+    width: 90vw;
+  }
+
   /* hide gas tools class */
   .gastools{
     display: none;
@@ -223,6 +267,9 @@ a{
 }
 
 @media (min-width: 600px) {
+  .responsivo{
+    width: 50vw;
+  }
   .dar-pontos{
     width: 50vw;
   }
