@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import AvisoVisualizar from "./AvisoVisualizar";
 import BotaoEditar from "./BotaoEditar";
 
-export default function Aviso({
+export default function AvisoEditar({
     aviso,
     indexDoAviso,
     emEdicao,
@@ -26,38 +27,36 @@ export default function Aviso({
         return <></>;
     }
 
-    console.log(indexDoAviso, indexPostEmEdicao);
-
     if (!emEdicao) {
         return (
-            <div className="aviso">
-                <h1>{avisoComponente.titulo}</h1>
-                <p>{avisoComponente.descricao}</p>
+            <AvisoVisualizar aviso={avisoComponente}>
                 <BotaoEditar
                     postSendoEditado={postSendoEditado}
                     indexDoAviso={indexDoAviso}
                 />
-            </div>
+            </AvisoVisualizar>
         );
     } else if (indexDoAviso === indexPostEmEdicao) {
         return (
-            <div className="aviso">
-                <div>
-                    <input
-                        type="text"
-                        value={avisoComponente.titulo}
-                        name="titulo"
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="text"
-                        value={avisoComponente.descricao}
-                        name="descricao"
-                        onChange={handleChange}
-                    />
+            <>
+                <div className="aviso">
+                    <div>
+                        <input
+                            type="text"
+                            value={avisoComponente.titulo}
+                            name="titulo"
+                            onChange={handleChange}
+                        />
+                        <input
+                            type="text"
+                            value={avisoComponente.descricao}
+                            name="descricao"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <button onClick={salvarMudancas}>salvar mudancas</button>
                 </div>
-                <button onClick={salvarMudancas}>salvar mudancas</button>
-            </div>
+            </>
         );
     } else {
         return (

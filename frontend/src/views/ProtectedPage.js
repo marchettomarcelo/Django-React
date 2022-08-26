@@ -3,6 +3,8 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import { convertProjeto, convertArea } from "../utils/ConvertDbValues";
 import { Link } from "react-router-dom";
+import MenuCriacaoAvisos from "../components/MenuCriacaoAvisos";
+import ListarAvisos from "../components/ListarAvisos";
 
 function ProtectedPage() {
     const { userProfile } = useContext(ProfileContext);
@@ -18,6 +20,7 @@ function ProtectedPage() {
 
     return (
         <div className="page">
+            {userProfile?.eh_diretor ? <MenuCriacaoAvisos /> : <ListarAvisos />}
             {userProfile && (
                 <>
                     <h1> Olá senhor {user.username} </h1>

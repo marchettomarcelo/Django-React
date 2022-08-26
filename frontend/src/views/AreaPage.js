@@ -18,7 +18,6 @@ export default function AreaPage() {
     ];
 
     if (!arrayAreas.includes(areaParametro) || !userProfile) {
-        console.log("oi");
         return <></>;
     }
 

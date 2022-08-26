@@ -18,7 +18,7 @@ export const ProfileProvider = ({ children }) => {
             try {
                 const response = await api.get(`/username/${user.user_id}`);
                 const x = response.data.response.perfil;
-                console.log("Request was made: ", x);
+
                 setUserProfile(x);
             } catch (e) {
                 console.log(e);

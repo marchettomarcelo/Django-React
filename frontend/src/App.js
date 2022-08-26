@@ -16,7 +16,7 @@ import Login from "./views/loginPage";
 import ProtectedPage from "./views/ProtectedPage";
 import AreaPage from "./views/AreaPage";
 import AdminPage from "./views/AdminPage";
-import ListaAvisos from "./components/ListaAvisos";
+import ListaAvisos from "./components/MenuCriacaoAvisos";
 
 function App() {
     return (
