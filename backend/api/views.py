@@ -1,10 +1,10 @@
-from .models import Perfil, Projetos, Area
+from .models import Perfil, Projetos, Area, Aviso
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, PerfilSerializer
+from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, PerfilSerializer, AvisoSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from django.contrib.auth.models import User
@@ -128,3 +128,70 @@ def create_perfil(request):
     except Exception as e:
         print(e)
         return Response({'response': "erro"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_avisos(request):
+    try:
+        every_aviso = Aviso.objects.all()
+        every_aviso_serialized = AvisoSerializer(every_aviso, many=True)
+
+        data_of_every_aviso_serialized = list(every_aviso_serialized.data)
+
+        todos_avisos = []
+
+        for aviso in data_of_every_aviso_serialized:
+
+            return_data = {}
+            return_data["titulo"] = aviso["titulo"]
+            return_data["descricao"] = aviso["descricao"]
+            return_data["id_aviso"] = aviso["id"]
+
+            id_autor = aviso["autor"]
+            return_data["autor"] = User.objects.get(
+                pk=id_autor).perfil.nome_exibicao
+
+            todos_avisos.append(return_data)
+
+        return JsonResponse({'avisos': todos_avisos}, status=status.HTTP_200_OK)
+    except:
+        return Response({'response': "erro"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_aviso(request):
+
+    try:
+        aviso = Aviso()
+        aviso.titulo = request.data.get('titulo')
+        aviso.descricao = request.data.get('descricao')
+
+        id_criador = int(request.data.get('id_criador'))
+        aviso.autor = User.objects.get(pk=id_criador)
+
+        aviso.save()
+        return JsonResponse({'response': 'ok'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response({'response': "deu erro"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_aviso(request):
+    try:
+
+        id_aviso = request.data.get('id_aviso')
+
+        aviso = Aviso.objects.get(pk=id_aviso)
+
+        aviso.titulo = request.data.get('titulo')
+        aviso.descricao = request.data.get('descricao')
+
+        aviso.save()
+
+        return JsonResponse({'response': 'ok'}, status=status.HTTP_200_OK)
+    except:
+        return Response({'response': 'Não foi possível alterar o perfil, avise o Marcelo'}, status=status.HTTP_400_BAD_REQUEST)

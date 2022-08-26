@@ -74,6 +74,15 @@ class Perfil(models.Model):
             return f'{self.user.username}, {area_participando} do {projetos_participando}'
 
 
+class Aviso(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titulo
+
+
 @receiver(post_save, sender=User)
 def create_user_Perfil(sender, instance, created, **kwargs):
     if created:

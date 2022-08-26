@@ -14,5 +14,10 @@ urlpatterns = [
     path('update-profile/', views.updateProfile, name='updateProfile'),
     path('create-perfil/', views.create_perfil, name='create_perfil'),
     path('users/', views.users, name='users'),
+
+    path('get-avisos/', views.get_avisos, name='get_avisos'),
+    path('create-aviso/', views.create_aviso, name='create_aviso'),
+    path('update-aviso/', views.update_aviso, name='update_aviso'),
+
     path('', views.getRoutes)
 ]
